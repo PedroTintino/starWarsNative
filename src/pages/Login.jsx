@@ -2,13 +2,18 @@ import { SafeAreaView,View, Text, StyleSheet, TouchableOpacity, ImageBackground,
 import background from '../assets/background.jpg';
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
+import googleBtn from '../assets/googlebtn.png';
 
 function LoginPage(){
     const navigation = useNavigation();
 
     function goToNextStep(){
-        navigation.navigate('SecondStep');
+        navigation.navigate('CreateAccount');
+    }
+
+    function getIn(){
+        navigation.navigate('Home');
     }
 
     return(
@@ -31,20 +36,19 @@ function LoginPage(){
                     style={styles.button}
                     onPress={goToNextStep}
                 >
-                    <Text style={styles.buttonText}>Enter</Text>
+                    <Text style={styles.buttonText} onPress={getIn}>Enter</Text>
                 </TouchableOpacity>
             </View>
-            <Text style={styles.fakeLink}>Create an account</Text>
+            <TouchableOpacity style={styles.method}>
+                    <Image source={googleBtn} style={styles.google}/>
+                </TouchableOpacity>
+            <Text style={styles.fakeLink} onPress={goToNextStep}>Create an account</Text>
+                
         </SafeAreaView>
         </ImageBackground>
     )
 }
 const styles = StyleSheet.create({
-    mainContainer: {
-        display: 'flex',
-    
-    },
-
     text: {
         color: '#fff',
         marginBottom: 15,
@@ -79,20 +83,28 @@ const styles = StyleSheet.create({
         backgroundColor: '#d1d1d1',
         color: '#000',
         height: 40,
-        marginBottom: 20,
+        marginBottom: 10,
         padding: 10,
         borderRadius: 8
     },
     logo: {
+        marginTop:150 ,
         width: '100%',
-        height: 200
+        height: '20%'
     },
     fakeLink: {
         color: '#FFE81F',
         textAlign: 'center',
-        marginTop: 20,
         textDecorationLine: 'underline',
         fontSize: 18
+    },
+    method:{
+        paddingHorizontal: 35,
+        marginTop: 20
+    },
+    google:{
+        width: '100%' ,
+        height: '30%',
     }
   });
   
