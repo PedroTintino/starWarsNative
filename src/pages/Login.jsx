@@ -13,7 +13,7 @@ function LoginPage(){
     }
 
     function getIn(){
-        navigation.navigate('Home');
+        navigation.navigate('Profile');
     }
 
     return(
@@ -34,9 +34,9 @@ function LoginPage(){
                 />
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={goToNextStep}
+                    onPress={getIn}
                 >
-                    <Text style={styles.buttonText} onPress={getIn}>Enter</Text>
+                    <Text style={styles.buttonText} >Enter</Text>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.method}>
