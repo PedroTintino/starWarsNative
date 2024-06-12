@@ -13,7 +13,7 @@ function LoginPage(){
     }
 
     function getIn(){
-        navigation.navigate('Profile');
+        navigation.navigate('Home');
     }
 
     return(
