@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, SectionList, ActivityIndicator, Image } from 'react-native';
 import { styles } from './styles';
+import luke from '../../assets/default.png';
 
-function Profile(){
+function Profile() {
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,42 +40,41 @@ function Profile(){
     );
   }
 
+  const sections = [
+    { title: 'Character Details', data: [
+      { key: 'Height', value: character.height },
+      { key: 'Mass', value: character.mass },
+      { key: 'Hair Color', value: character.hair_color },
+      { key: 'Skin Color', value: character.skin_color },
+      { key: 'Eye Color', value: character.eye_color },
+      { key: 'Birth Year', value: character.birth_year },
+      { key: 'Gender', value: character.gender },
+      { key: 'Homeworld', value: character.homeworld.name },
+    ] },
+    { title: 'Films', data: character.films.map(film => ({ key: film.title })) }
+  ];
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{character.name}</Text>
-      <Text style={styles.detail}>Height: {character.height}</Text>
-      <Text style={styles.detail}>Mass: {character.mass}</Text>
-      <Text style={styles.detail}>Hair Color: {character.hair_color}</Text>
-      <Text style={styles.detail}>Skin Color: {character.skin_color}</Text>
-      <Text style={styles.detail}>Eye Color: {character.eye_color}</Text>
-      <Text style={styles.detail}>Birth Year: {character.birth_year}</Text>
-      <Text style={styles.detail}>Gender: {character.gender}</Text>
-      <Text style={styles.detail}>Homeworld: {character.homeworld.name}</Text>
-
-      <Text style={styles.subtitle}>Films:</Text>
-      <FlatList
-        data={character.films}
-        renderItem={({ item }) => <Text style={styles.item}>{item.title}</Text>}
-        keyExtractor={item => item.url}
-      />
-
-      <Text style={styles.subtitle}>Vehicles:</Text>
-      <FlatList
-        data={character.vehicles}
-        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
-        keyExtractor={item => item.url}
-      />
-
-      <Text style={styles.subtitle}>Starships:</Text>
-      <FlatList
-        data={character.starships}
-        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
-        keyExtractor={item => item.url}
-      />
-    </View>
+    <SectionList
+      sections={sections}
+      keyExtractor={(item, index) => item.key + index}
+      renderItem={({ item }) => (
+        <View style={styles.item}>
+          <Text style={styles.itemText}>{item.key}: {item.value || ''}</Text>
+        </View>
+      )}
+      renderSectionHeader={({ section: { title } }) => (
+        <Text style={styles.header}>{title}</Text>
+      )}
+      ListHeaderComponent={
+        <View style={styles.imageContainer}>
+          <Image source={luke} style={styles.image} />
+          <Text style={styles.title}>{character.name}</Text>
+        </View>
+      }
+      style={styles.container}
+    />
   );
-};
-
-
+}
 
 export default Profile;
