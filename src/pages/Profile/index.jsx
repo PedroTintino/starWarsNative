@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, SectionList, ActivityIndicator, Image } from 'react-native';
+import { View, Text, SectionList, ActivityIndicator, Image, ScrollView } from 'react-native';
 import { styles } from './styles';
 import luke from '../../assets/default.png';
 import { useRoute } from '@react-navigation/native';
@@ -86,6 +86,8 @@ function Profile() {
   ];
 
   return (
+    <ScrollView>
+    
     <SectionList
       sections={sections}
       keyExtractor={(item, index) => item.key + index}
@@ -105,6 +107,7 @@ function Profile() {
       }
       style={styles.container}
     />
+    </ScrollView>
   );
 }
 
