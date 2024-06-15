@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import background from '../../assets/background.jpg';
-import { View, Text, FlatList, ActivityIndicator, ImageBackground, Image } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, ImageBackground, Image, ScrollView } from 'react-native';
 import { styles } from './styles';
 import { useNavigation } from "@react-navigation/native";
 
@@ -36,6 +36,7 @@ function Movies(){
   }
     
   return (
+    <ScrollView>
     <ImageBackground source={background} style={styles.background}>  
       <Text style={styles.returnOpt} onPress={returnPage}>Return</Text>
       {loadingFilms ? (
@@ -51,6 +52,7 @@ function Movies(){
         </>
       )}
     </ImageBackground>
+      </ScrollView>
     )
 }   
 
