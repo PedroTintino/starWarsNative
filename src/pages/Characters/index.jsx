@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import background from '../../assets/background.jpg';
-import { View, Text, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
-import { styles } from './styles';
+import { View, Text, FlatList, ActivityIndicator, ImageBackground, TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import background from '../../assets/background.jpg';
+import { styles } from './styles';
 
 function Characters(){
   const navigation = useNavigation();
@@ -21,34 +20,40 @@ function Characters(){
         console.error(error);
         setLoadingCharacters(false);
       });
-    },[]);
-
+  }, []);
 
   const renderCharacter = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={goToProfile}>
-      <Text style={styles.title} >{item.name}</Text>
+    <TouchableOpacity style={styles.item} onPress={() => goToProfile(item.url)}>
+      <Text style={styles.title}>{item.name}</Text>
     </TouchableOpacity>
-  );   
+  );
 
-  function goToProfile(){
-    navigation.navigate('Profile');
+  function goToProfile(url) {
+    const id = url.split('/').filter(Boolean).pop(); // Extracting ID from URL
+    navigation.navigate('Profile', { id });
   }
+
+  const returnPage = () => {
+    navigation.navigate('Home');
+  };
+
   return (
     <ImageBackground source={background} style={styles.background}>
+      <View style={{ display: 'flex', width: '100%' }}>
         <Text style={styles.headerTitle}>Personagens</Text>
-        {loadingCharacters ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <Text style={styles.returnOpt} onPress={returnPage}>Return</Text>
+      </View>
+      {loadingCharacters ? (
+        <ActivityIndicator size="large" color="#FFE81F" style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }} />
       ) : (
-        <>
-          <FlatList
-            data={characters}
-            renderItem={renderCharacter}
-            keyExtractor={item => item.name}
-          />
-        </>
+        <FlatList
+          data={characters}
+          renderItem={renderCharacter}
+          keyExtractor={item => item.name}
+        />
       )}
     </ImageBackground>
-    )
-}   
+  );
+}
 
 export default Characters;

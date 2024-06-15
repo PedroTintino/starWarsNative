@@ -5,6 +5,11 @@ export const styles = StyleSheet.create({
       flex: 1,
       paddingTop: 50,
     },
+    returnOpt:{
+      color: '#fff',
+      paddingHorizontal: 20,
+      fontWeight: '600'
+    },
     button:{
         backgroundColor: '#FFE81F',
         padding: 20,

@@ -2,40 +2,71 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, SectionList, ActivityIndicator, Image } from 'react-native';
 import { styles } from './styles';
 import luke from '../../assets/default.png';
+import { useRoute } from '@react-navigation/native';
 
 function Profile() {
+  const route = useRoute();
+  const { id } = route.params; // Get the character ID from the route parameters
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!id) {
+      setError('Character ID is missing');
+      setLoading(false);
+      return;
+    }
+
     // Fetch character details
-    fetch('https://swapi.dev/api/people/1/')
+    fetch(`https://swapi.dev/api/people/${id}/`)
       .then(response => response.json())
       .then(async json => {
-        const homeworld = await fetch(json.homeworld).then(res => res.json());
-        const films = await Promise.all(json.films.map(url => fetch(url).then(res => res.json())));
-        const vehicles = await Promise.all(json.vehicles.map(url => fetch(url).then(res => res.json())));
-        const starships = await Promise.all(json.starships.map(url => fetch(url).then(res => res.json())));
+        try {
+          const homeworld = await fetch(json.homeworld).then(res => res.json());
+          const films = await Promise.all(json.films.map(url => fetch(url).then(res => res.json())));
+          const vehicles = await Promise.all(json.vehicles.map(url => fetch(url).then(res => res.json())));
+          const starships = await Promise.all(json.starships.map(url => fetch(url).then(res => res.json())));
 
-        setCharacter({
-          ...json,
-          homeworld,
-          films,
-          vehicles,
-          starships
-        });
+          setCharacter({
+            ...json,
+            homeworld,
+            films,
+            vehicles,
+            starships
+          });
+        } catch (error) {
+          setError('Failed to fetch additional character details');
+        }
         setLoading(false);
       })
       .catch(error => {
         console.error(error);
+        setError('Failed to fetch character data');
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#FFE81F" />
+        <ActivityIndicator size="large" color="#FFE81F" style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
+
+  if (!character) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.errorText}>Character data not available</Text>
       </View>
     );
   }

@@ -1,15 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Intro from "./src/pages/Intro/index";
-import SecondIntro from './src/pages/SecondIntro/index';
-import ThirdIntro from './src/pages/ThirdIntro/index';
-import LoginPage from './src/pages/Login/index';
-import CreateAccount from './src/pages/CreateAccount';
-import Profile from './src/pages/Profile/index';
-import Home from './src/pages/Home';
-import Characters from './src/pages/Characters';
-import Movies from './src/pages/Movies';
-
+import Intro from "./src/pages/Intro/index.jsx";
+import SecondIntro from './src/pages/SecondIntro/index.jsx';
+import ThirdIntro from './src/pages/ThirdIntro/index.jsx';
+import LoginPage from './src/pages/Login/index.jsx';
+import CreateAccount from './src/pages/CreateAccount/index.jsx';
+import Profile from './src/pages/Profile/index.jsx';
+import Home from './src/pages/Home/index.jsx';
+import Characters from './src/pages/Characters/index.jsx';
+import Movies from './src/pages/Movies/index.jsx';
 
 export default function App() {
 const Stack = createStackNavigator();

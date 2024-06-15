@@ -12,6 +12,11 @@ export const styles = StyleSheet.create({
       marginHorizontal: 24,
       borderRadius: 10,
     },
+    returnOpt:{
+      color: '#fff',
+      paddingHorizontal: 20,
+      fontWeight: '600'
+    },
     title: {
       fontSize: 22,
       fontWeight: "600",

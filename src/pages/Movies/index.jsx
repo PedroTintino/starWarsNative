@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import background from '../../assets/background.jpg';
-import { View, Text, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, ImageBackground, Image } from 'react-native';
 import { styles } from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from "@react-navigation/native";
 
 function Movies(){
+  const navigation = useNavigation();
   const [films, setFilms] = useState([]);
   const [loadingFilms, setLoadingFilms] = useState(true);
 
@@ -29,11 +30,16 @@ function Movies(){
       <Text style={styles.subtitle}>Lançamento: {item.release_date}</Text>
     </View>
   );
+
+  const returnPage = () => {
+    navigation.navigate('Home');
+  }
     
   return (
     <ImageBackground source={background} style={styles.background}>  
+      <Text style={styles.returnOpt} onPress={returnPage}>Return</Text>
       {loadingFilms ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#FFE81F" style={{display: 'flex', flex:1,alignItems: 'center', justifyContent:'center'}}/>
       ) : (
         <>
           <Text style={styles.header}>Filmes</Text>
