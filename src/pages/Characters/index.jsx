@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import background from '../../assets/background.jpg';
 import { styles } from './styles';
@@ -38,6 +38,7 @@ function Characters(){
   };
 
   return (
+    <ScrollView>
     <ImageBackground source={background} style={styles.background}>
       <View style={{ display: 'flex', width: '100%' }}>
         <Text style={styles.headerTitle}>Personagens</Text>
@@ -53,6 +54,7 @@ function Characters(){
         />
       )}
     </ImageBackground>
+      </ScrollView>
   );
 }
 
