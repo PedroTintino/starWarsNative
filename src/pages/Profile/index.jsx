@@ -3,6 +3,7 @@ import { View, Text, SectionList, ActivityIndicator, Image, ScrollView } from 'r
 import { styles } from './styles';
 import luke from '../../assets/default.png';
 import { useRoute } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 function Profile() {
   const route = useRoute();
@@ -10,6 +11,7 @@ function Profile() {
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (!id) {
@@ -71,6 +73,10 @@ function Profile() {
     );
   }
 
+  const returnPage = () => {
+    navigation.navigate('Home');
+  }
+
   const sections = [
     { title: 'Character Details', data: [
       { key: 'Height', value: character.height },
@@ -87,7 +93,7 @@ function Profile() {
 
   return (
     <ScrollView>
-    
+    <Text style={styles.returnOpt} onPress={returnPage}>Return</Text>
     <SectionList
       sections={sections}
       keyExtractor={(item, index) => item.key + index}
