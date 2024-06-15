@@ -24,6 +24,13 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
+     returnOpt:{
+      color: '#fff',
+      paddingHorizontal: 20,
+      fontWeight: '600',
+      marginTop: 30,
+      backgroundColor: '#000'
+    },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
