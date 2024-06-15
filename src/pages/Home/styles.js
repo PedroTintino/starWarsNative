@@ -39,5 +39,14 @@ export const styles = StyleSheet.create({
     list:{
         maxHeight: 450,
         overflow:"hidden"
+    },
+    menu:{
+      marginTop: 40,
+      marginHorizontal: 20,
+      backgroundColor: '#FFE81F',
+    },
+    menuItem: {
+      fontWeight: '600',
+      fontSize: 24
     }
   });

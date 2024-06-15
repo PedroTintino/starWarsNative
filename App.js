@@ -9,11 +9,13 @@ import Profile from './src/pages/Profile/index.jsx';
 import Home from './src/pages/Home/index.jsx';
 import Characters from './src/pages/Characters/index.jsx';
 import Movies from './src/pages/Movies/index.jsx';
+import { PaperProvider } from 'react-native-paper';
 
 export default function App() {
 const Stack = createStackNavigator();
 
   return (
+    <PaperProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Intro">
         <Stack.Screen name="Intro" options={{ headerShown: false }} component={Intro} />
@@ -27,5 +29,6 @@ const Stack = createStackNavigator();
         <Stack.Screen name="Movies" options={{ headerShown: false }} component={Movies} />
       </Stack.Navigator>
     </NavigationContainer>
+    </PaperProvider>
   );
 }
